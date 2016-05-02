@@ -12,8 +12,12 @@ class ViewController: UIViewController {
     @IBOutlet weak var cityNameTextField: UITextField!
     @IBOutlet weak var cityNameLabel: UILabel!
    	@IBOutlet weak var cityTempLabel: UILabel!
+    @IBOutlet weak var cityGroupWeather: UILabel!
+    @IBOutlet weak var cityDescriptionLabel: UILabel!
     
     @IBAction func refreshDataButtonClicked(sender: AnyObject) {
+        
+        getWeatherData("http://api.openweathermap.org/data/2.5/weather?q="+(cityNameTextField.text)!+"&appid=c48ad607e70ed8c8fe03a426f8a15f46")
     }
     
     override func viewDidLoad() {
@@ -22,6 +26,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         //apiid=c48ad607e70ed8c8fe03a426f8a15f46
+        cityNameTextField.text="Samara"
         getWeatherData("http://api.openweathermap.org/data/2.5/weather?q=Samara&appid=c48ad607e70ed8c8fe03a426f8a15f46")
     }
 
@@ -56,8 +61,26 @@ class ViewController: UIViewController {
                     cityTempLabel.text = String(format: "%.1f", tempC)
                 }
             }
+            
+            if let weather = json["weather"] as? NSArray{
+                if let weatherDict = weather[0] as? NSDictionary {
+                    if let type = weatherDict["main"] as? String{
+                        cityGroupWeather.text = type
+                    }
+                    
+                    if let desc = weatherDict["description"] as? String{
+                        cityDescriptionLabel.text = desc
+                    }
+                    //TODO analyze type and description and choose the weather icon
+                    
+                }
+            }
+            
         } catch {
-            print("error: \(error)")
+            let alert = UIAlertController(title: "Error", message: "Received incorrect data", preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
+            self.presentViewController(alert, animated: true, completion: nil)
+            //print("error: \(error)")
         }
     }
 
