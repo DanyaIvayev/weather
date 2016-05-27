@@ -18,12 +18,14 @@
 		84965B6D1CD7A08400C87012 /* drizzle.png in Resources */ = {isa = PBXBuildFile; fileRef = 84965B6C1CD7A08400C87012 /* drizzle.png */; };
 		84965B6F1CD7A6B600C87012 /* lightning-rain.png in Resources */ = {isa = PBXBuildFile; fileRef = 84965B6E1CD7A6B600C87012 /* lightning-rain.png */; };
 		84965B711CD7A74700C87012 /* snow-alt.png in Resources */ = {isa = PBXBuildFile; fileRef = 84965B701CD7A74700C87012 /* snow-alt.png */; };
+		84A345B81CF8AAFA0095F3B4 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84A345B71CF8AAFA0095F3B4 /* CoreLocation.framework */; };
 		84B83F6D1CD6170B003832A9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B83F6C1CD6170B003832A9 /* AppDelegate.swift */; };
 		84B83F6F1CD6170B003832A9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B83F6E1CD6170B003832A9 /* ViewController.swift */; };
 		84B83F721CD6170B003832A9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84B83F701CD6170B003832A9 /* Main.storyboard */; };
 		84B83F751CD6170B003832A9 /* weather.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 84B83F731CD6170B003832A9 /* weather.xcdatamodeld */; };
 		84B83F771CD6170B003832A9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84B83F761CD6170B003832A9 /* Assets.xcassets */; };
 		84B83F7A1CD6170B003832A9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84B83F781CD6170B003832A9 /* LaunchScreen.storyboard */; };
+		84F18E061CF8B70000C70388 /* haze.png in Resources */ = {isa = PBXBuildFile; fileRef = 84F18E051CF8B70000C70388 /* haze.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +40,7 @@
 		84965B6C1CD7A08400C87012 /* drizzle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = drizzle.png; sourceTree = "<group>"; };
 		84965B6E1CD7A6B600C87012 /* lightning-rain.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lightning-rain.png"; sourceTree = "<group>"; };
 		84965B701CD7A74700C87012 /* snow-alt.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "snow-alt.png"; sourceTree = "<group>"; };
+		84A345B71CF8AAFA0095F3B4 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		84B83F691CD6170B003832A9 /* weather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = weather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84B83F6C1CD6170B003832A9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		84B83F6E1CD6170B003832A9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -46,6 +49,7 @@
 		84B83F761CD6170B003832A9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		84B83F791CD6170B003832A9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		84B83F7B1CD6170B003832A9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		84F18E051CF8B70000C70388 /* haze.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = haze.png; path = "../../../../Volumes/VMware Shared Folders/share/haze.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +57,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84A345B81CF8AAFA0095F3B4 /* CoreLocation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -62,6 +67,7 @@
 		84B83F601CD6170B003832A9 = {
 			isa = PBXGroup;
 			children = (
+				84A345B71CF8AAFA0095F3B4 /* CoreLocation.framework */,
 				84B83F6B1CD6170B003832A9 /* weather */,
 				84B83F6A1CD6170B003832A9 /* Products */,
 			);
@@ -90,6 +96,7 @@
 				84965B681CD79F1700C87012 /* drizzle-sun.png */,
 				84965B631CD7984900C87012 /* cloud.png */,
 				84965B6A1CD7A03A00C87012 /* drizzle-alt.png */,
+				84F18E051CF8B70000C70388 /* haze.png */,
 				84965B641CD7984900C87012 /* sun.png */,
 				84965B6C1CD7A08400C87012 /* drizzle.png */,
 				84965B6E1CD7A6B600C87012 /* lightning-rain.png */,
@@ -169,6 +176,7 @@
 				84965B711CD7A74700C87012 /* snow-alt.png in Resources */,
 				84B83F7A1CD6170B003832A9 /* LaunchScreen.storyboard in Resources */,
 				84B83F771CD6170B003832A9 /* Assets.xcassets in Resources */,
+				84F18E061CF8B70000C70388 /* haze.png in Resources */,
 				84965B671CD7984900C87012 /* sun.png in Resources */,
 				84B83F721CD6170B003832A9 /* Main.storyboard in Resources */,
 				84965B651CD7984900C87012 /* cloud-sun.png in Resources */,

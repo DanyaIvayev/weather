@@ -7,31 +7,68 @@
 //
 
 import UIKit
+import CoreLocation
+import Darwin
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, CLLocationManagerDelegate {
     @IBOutlet weak var cityNameTextField: UITextField!
     @IBOutlet weak var cityNameLabel: UILabel!
+    
    	@IBOutlet weak var cityTempLabel: UILabel!
     @IBOutlet weak var cityGroupWeather: UILabel!
     @IBOutlet weak var cityDescriptionLabel: UILabel!
     @IBOutlet weak var weatherIconImageView: UIImageView!
     
-    @IBAction func refreshDataButtonClicked(sender: AnyObject) {
-        
-        getWeatherData("http://api.openweathermap.org/data/2.5/weather?q="+(cityNameTextField.text)!+"&appid=c48ad607e70ed8c8fe03a426f8a15f46")
+    @IBAction func ExitApp(sender: AnyObject) {
+        exit(0)
     }
     
-    override func viewDidLoad() {
+    let locationManager = CLLocationManager()
+    
+    @IBAction func refreshDataButtonClicked(sender: AnyObject) {
         
-        
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        //apiid=c48ad607e70ed8c8fe03a426f8a15f46
-        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "background.png")!)
-        cityNameTextField.text="Samara"
-        getWeatherData("http://api.openweathermap.org/data/2.5/weather?q=Samara&appid=c48ad607e70ed8c8fe03a426f8a15f46")
+        let cityName = removeSpecialCharsFromString(cityNameTextField.text!)
+        getWeatherData("http://api.openweathermap.org/data/2.5/weather?q="+(cityName)+"&appid=c48ad607e70ed8c8fe03a426f8a15f46")
     }
 
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "background.png")!)
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.startUpdatingLocation()
+    }
+    
+    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
+        print("Error while updating location " + error.localizedDescription)
+    }
+    
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        CLGeocoder().reverseGeocodeLocation(manager.location!, completionHandler: {(placemarks, error)-> Void in
+            if (error != nil) {
+                print("Reverse geocoder failed with error" + error!.localizedDescription)
+                return
+            }
+            
+            if placemarks!.count > 0 {
+                let pm = placemarks![0] as CLPlacemark
+                self.displayLocationInfo(pm)
+            } else {
+                print("Problem with the data received from geocoder")
+            }
+        })
+    }
+    
+    func displayLocationInfo(placemark: CLPlacemark) {
+        locationManager.stopUpdatingLocation()
+        NSLog(placemark.locality != nil ? placemark.locality! : "Failed!")
+        cityNameTextField.text=placemark.locality != nil ? placemark.locality! : "Samara"
+        let cityName = removeSpecialCharsFromString(cityNameTextField.text!)
+        getWeatherData("http://api.openweathermap.org/data/2.5/weather?q="+(cityName)+"&appid=c48ad607e70ed8c8fe03a426f8a15f46")
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -39,13 +76,18 @@ class ViewController: UIViewController {
 
     func getWeatherData(urlString: String){
         let url = NSURL(string: urlString)
-        
         let task = NSURLSession.sharedSession().dataTaskWithURL(url!){ (data, response, error) in
             dispatch_async(dispatch_get_main_queue(), {
                 self.setLabels(data!)
             })
         }
         task.resume()
+    }
+    
+    func removeSpecialCharsFromString(text: String) -> String {
+        let okayChars : Set<Character> =
+        Set("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLKMNOPQRSTUVWXYZ1234567890-(),".characters)
+        return String(text.characters.filter {okayChars.contains($0) })
     }
     
     func setLabels(weatherData: NSData){
@@ -71,6 +113,9 @@ class ViewController: UIViewController {
                         if let desc = weatherDict["description"] as? String{
                             cityDescriptionLabel.text = desc
                             switch type{
+                            case "Haze":
+                                    let image:UIImage = UIImage(named: "haze.png")!
+                                    weatherIconImageView.image=image
                             case "Clouds" :
                                     if desc == "few clouds"{
                                         let image:UIImage = UIImage(named: "cloud-sun.png")!
